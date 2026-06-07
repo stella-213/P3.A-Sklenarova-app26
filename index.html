@@ -66,3 +66,110 @@ button:hover {
 
 <body>
 
+<div class="container">
+<h1>🎁 MysteryBox CZ</h1>
+
+<div class="box">
+MALÝ BOX (45 Kč)
+<input type="number" id="small" value="0" min="0">
+</div>
+
+<div class="box">
+STŘEDNÍ BOX (65 Kč)
+<input type="number" id="medium" value="0" min="0">
+</div>
+
+<div class="box">
+VELKÝ BOX (85 Kč)
+<input type="number" id="large" value="0" min="0">
+</div>
+
+<div class="box">
+MAXI BOX (100 Kč)
+<input type="number" id="maxi" value="0" min="0">
+</div>
+
+<div class="total">
+Celková cena: <span id="total">0</span> Kč
+</div>
+
+<button onclick="spocitej()">Spočítat cenu</button>
+
+<!-- FORMULÁŘ -->
+<div class="form">
+<label>VAŠE JMÉNO (Příjmení Jméno):</label>
+<input type="text" id="jmeno" placeholder="Novák Jan">
+
+<label>TELEFON (+420 000 000 000):</label>
+<input type="text" id="telefon" placeholder="+420 123 456 789">
+
+<label>EMAIL:</label>
+<input type="email" id="email" placeholder="novak@email.cz">
+</div>
+
+<button onclick="odeslat()">ODESLAT OBJEDNÁVKU</button>
+
+</div>
+
+<script>
+
+function spocitej() {
+    let small = Number(document.getElementById("small").value);
+    let medium = Number(document.getElementById("medium").value);
+    let large = Number(document.getElementById("large").value);
+    let maxi = Number(document.getElementById("maxi").value);
+
+    let total = small*45 + medium*65 + large*85 + maxi*100;
+    document.getElementById("total").innerText = total;
+}
+
+function odeslat() {
+
+    spocitej();
+
+    let jmeno = document.getElementById("jmeno").value.trim();
+    let telefon = document.getElementById("telefon").value.trim();
+    let email = document.getElementById("email").value.trim();
+
+    if (jmeno === "" || telefon === "" || email === "") {
+        alert("Vyplň jméno, telefon i email!");
+        return;
+    }
+
+    if (!email.includes("@")) {
+        alert("Zadej platný email!");
+        return;
+    }
+
+    let small = Number(document.getElementById("small").value);
+    let medium = Number(document.getElementById("medium").value);
+    let large = Number(document.getElementById("large").value);
+    let maxi = Number(document.getElementById("maxi").value);
+    let total = document.getElementById("total").innerText;
+
+    let text = `
+OBJEDNÁVKA MYSTERY BOX
+
+Zákazník: ${jmeno}
+Telefon: ${telefon}
+Email: ${email}
+
+Malý box (45 Kč): ${small} ks = ${small*45} Kč
+Střední box (65 Kč): ${medium} ks = ${medium*65} Kč
+Velký box (85 Kč): ${large} ks = ${large*85} Kč
+Maxi box (100 Kč): ${maxi} ks = ${maxi*100} Kč
+
+CELKEM: ${total} Kč
+`;
+
+    let mail = "mailto:app@kostka-skola.cz"
+        + "?subject=" + encodeURIComponent("Objednávka MysteryBox")
+        + "&body=" + encodeURIComponent(text);
+
+    window.location.href = mail;
+}
+
+</script>
+
+</body>
+</html>
