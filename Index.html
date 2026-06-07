@@ -6,14 +6,14 @@
 
 <style>
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1f1c2c, #928dab);
     color: white;
     text-align: center;
 }
 
 .container {
-    width: 420px;
+    width: 400px;
     margin: auto;
     background: #2c2c54;
     padding: 20px;
@@ -27,7 +27,7 @@ h1 {
 .box {
     display: flex;
     justify-content: space-between;
-    margin: 8px 0;
+    margin: 10px 0;
 }
 
 input {
@@ -41,7 +41,7 @@ input {
 
 .form input {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 button {
@@ -58,7 +58,7 @@ button:hover {
 }
 
 .total {
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 18px;
 }
 </style>
@@ -67,44 +67,45 @@ button:hover {
 <body>
 
 <div class="container">
-<h1>🎁 MysteryBox CZ</h1>
+    <h1>🎁 MysteryBox CZ</h1>
+    <p>Vyber si svůj box</p>
 
-<div class="box">
-MALÝ BOX (45 Kč)
-<input type="number" id="small" value="0" min="0">
-</div>
+    <div class="box">
+        MALÝ BOX (45 Kč)
+        <input type="number" id="small" value="0" min="0">
+    </div>
 
-<div class="box">
-STŘEDNÍ BOX (65 Kč)
-<input type="number" id="medium" value="0" min="0">
-</div>
+    <div class="box">
+        STŘEDNÍ BOX (65 Kč)
+        <input type="number" id="medium" value="0" min="0">
+    </div>
 
-<div class="box">
-VELKÝ BOX (85 Kč)
-<input type="number" id="large" value="0" min="0">
-</div>
+    <div class="box">
+        VELKÝ BOX (85 Kč)
+        <input type="number" id="large" value="0" min="0">
+    </div>
 
-<div class="box">
-MAXI BOX (100 Kč)
-<input type="number" id="maxi" value="0" min="0">
-</div>
+    <div class="box">
+        MAXI BOX (100 Kč)
+        <input type="number" id="maxi" value="0" min="0">
+    </div>
 
-<div class="total">
-Celková cena: <span id="total">0</span> Kč
-</div>
+    <div class="total">
+        Celková cena: <span id="total">0</span> Kč
+    </div>
 
-<button onclick="spocitej()">Spočítat cenu</button>
+    <button onclick="spocitej()">Spočítat cenu</button>
 
-<div class="form">
-<label>VAŠE JMÉNO (Příjmení Jméno):</label>
-<input type="text" id="jmeno" placeholder="Novák Jan" required>
+    <!-- NOVÁ POLE -->
+    <div class="form">
+        <label>VAŠE JMÉNO (Příjmení Jméno):</label>
+        <input type="text" id="jmeno" placeholder="Novák Jan">
 
-<label>TELEFON (+420 000 000 000):</label>
-<input type="text" id="telefon" placeholder="+420 123 456 789" required>
-</div>
+        <label>TELEFON (+420 000 000 000):</label>
+        <input type="text" id="telefon" placeholder="+420 123 456 789">
+    </div>
 
-<button onclick="odeslat()">ODESLAT OBJEDNÁVKU</button>
-
+    <button onclick="odeslat()">ODESLAT OBJEDNÁVKU</button>
 </div>
 
 <script>
@@ -121,13 +122,13 @@ function spocitej() {
 
 function odeslat() {
 
-    spocitej(); // vždy nejdřív spočítat
+    spocitej(); // přepočítá cenu
 
     let jmeno = document.getElementById("jmeno").value.trim();
     let telefon = document.getElementById("telefon").value.trim();
 
     if (jmeno === "" || telefon === "") {
-        alert("Vyplň jméno i telefon!");
+        alert("Vyplň jméno a telefon!");
         return;
     }
 
@@ -137,19 +138,19 @@ function odeslat() {
     let maxi = Number(document.getElementById("maxi").value);
     let total = document.getElementById("total").innerText;
 
-    let text =
-`OBJEDNÁVKA MYSTERY BOX
+    let text = `
+OBJEDNÁVKA MYSTERY BOX
 
 Zákazník: ${jmeno}
 Telefon: ${telefon}
 
-Objednané položky:
 Malý box (45 Kč): ${small} ks = ${small*45} Kč
 Střední box (65 Kč): ${medium} ks = ${medium*65} Kč
 Velký box (85 Kč): ${large} ks = ${large*85} Kč
 Maxi box (100 Kč): ${maxi} ks = ${maxi*100} Kč
 
-Celková cena: ${total} Kč`;
+CELKEM: ${total} Kč
+`;
 
     let mail = "mailto:app@kostka-skola.cz"
         + "?subject=" + encodeURIComponent("Objednávka MysteryBox")
@@ -162,3 +163,4 @@ Celková cena: ${total} Kč`;
 
 </body>
 </html>
+``
