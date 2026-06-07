@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>MysteryBox CZ</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 400px;
+    margin: auto;
+    background: #2c2c54;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: gold;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+input {
+    width: 50px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background: gold;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: orange;
+}
+
+.total {
+    margin-top: 15px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🎁 MysteryBox CZ</h1>
+    <p>Vyber si svůj box</p>
+
+    <div class="box">
+        MALÝ BOX (45 Kč)
+        <input type="number" id="small" value="0" min="0">
+    </div>
+
+    <div class="box">
+        STŘEDNÍ BOX (65 Kč)
+        <input type="number" id="medium" value="0" min="0">
+    </div>
+
+    <div class="box">
+        VELKÝ BOX (85 Kč)
+        <input type="number" id="large" value="0" min="0">
+    </div>
+
+    <div class="box">
+        MAXI BOX (100 Kč)
+        <input type="number" id="maxi" value="0" min="0">
+    </div>
+
+    <div class="total">
+        Celková cena: <span id="total">0</span> Kč
+    </div>
+
+    <button onclick="spocitej()">Spočítat cenu</button>
+    <button onclick="odeslat()">ODESLAT OBJEDNÁVKU</button>
+</div>
+
+<script>
+function spocitej() {
+    let small = document.getElementById("small").value;
+    let medium = document.getElementById("medium").value;
+    let large = document.getElementById("large").value;
+    let maxi = document.getElementById("maxi").value;
+
+    let total = small*45 + medium*65 + large*85 + maxi*100;
+
+    document.getElementById("total").innerText = total;
+}
+
+function odeslat() {
+    let small = document.getElementById("small").value;
+    let medium = document.getElementById("medium").value;
+    let large = document.getElementById("large").value;
+    let maxi = document.getElementById("maxi").value;
+    let total = document.getElementById("total").innerText;
+
+    let text = "Objednávka:%0D%0A" +
+        "Malý box: " + small + "%0D%0A" +
+        "Střední box: " + medium + "%0D%0A" +
+        "Velký box: " + large + "%0D%0A" +
+        "Maxi box: " + maxi + "%0D%0A" +
+        "Celkem: " + total + " Kč";
+
+    window.location.href = "mailto:app@kostka-skola.cz?subject=Objednávka&body=" + text;
+}
+</script>
+
+</body>
+</html>
