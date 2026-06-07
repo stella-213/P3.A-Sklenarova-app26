@@ -95,13 +95,12 @@ Celková cena: <span id="total">0</span> Kč
 
 <button onclick="spocitej()">Spočítat cenu</button>
 
-<!-- FORMULÁŘ -->
 <div class="form">
 <label>VAŠE JMÉNO (Příjmení Jméno):</label>
-<input type="text" id="jmeno" placeholder="Novák Jan">
+<input type="text" id="jmeno" placeholder="Novák Jan" required>
 
-<label>TELEFON (např. +420 123 456 789):</label>
-<input type="text" id="telefon" placeholder="+420 123 456 789">
+<label>TELEFON (+420 000 000 000):</label>
+<input type="text" id="telefon" placeholder="+420 123 456 789" required>
 </div>
 
 <button onclick="odeslat()">ODESLAT OBJEDNÁVKU</button>
@@ -109,51 +108,56 @@ Celková cena: <span id="total">0</span> Kč
 </div>
 
 <script>
+
 function spocitej() {
-    let small = document.getElementById("small").value;
-    let medium = document.getElementById("medium").value;
-    let large = document.getElementById("large").value;
-    let maxi = document.getElementById("maxi").value;
+    let small = Number(document.getElementById("small").value);
+    let medium = Number(document.getElementById("medium").value);
+    let large = Number(document.getElementById("large").value);
+    let maxi = Number(document.getElementById("maxi").value);
 
     let total = small*45 + medium*65 + large*85 + maxi*100;
-
     document.getElementById("total").innerText = total;
 }
 
 function odeslat() {
 
-    let jmeno = document.getElementById("jmeno").value;
-    let telefon = document.getElementById("telefon").value;
+    spocitej(); // vždy nejdřív spočítat
+
+    let jmeno = document.getElementById("jmeno").value.trim();
+    let telefon = document.getElementById("telefon").value.trim();
 
     if (jmeno === "" || telefon === "") {
-        alert("Vyplňte jméno i telefon!");
+        alert("Vyplň jméno i telefon!");
         return;
     }
 
-    let small = document.getElementById("small").value;
-    let medium = document.getElementById("medium").value;
-    let large = document.getElementById("large").value;
-    let maxi = document.getElementById("maxi").value;
-
+    let small = Number(document.getElementById("small").value);
+    let medium = Number(document.getElementById("medium").value);
+    let large = Number(document.getElementById("large").value);
+    let maxi = Number(document.getElementById("maxi").value);
     let total = document.getElementById("total").innerText;
 
-    let text = 
-    "OBJEDNÁVKA MYSTERY BOX%0D%0A%0D%0A" +
+    let text =
+`OBJEDNÁVKA MYSTERY BOX
 
-    "Zákazník: " + jmeno + "%0D%0A" +
-    "Telefon: " + telefon + "%0D%0A%0D%0A" +
+Zákazník: ${jmeno}
+Telefon: ${telefon}
 
-    "Objednané položky:%0D%0A" +
+Objednané položky:
+Malý box (45 Kč): ${small} ks = ${small*45} Kč
+Střední box (65 Kč): ${medium} ks = ${medium*65} Kč
+Velký box (85 Kč): ${large} ks = ${large*85} Kč
+Maxi box (100 Kč): ${maxi} ks = ${maxi*100} Kč
 
-    "Malý box (45 Kč) - " + small + " ks = " + (small*45) + " Kč%0D%0A" +
-    "Střední box (65 Kč) - " + medium + " ks = " + (medium*65) + " Kč%0D%0A" +
-    "Velký box (85 Kč) - " + large + " ks = " + (large*85) + " Kč%0D%0A" +
-    "Maxi box (100 Kč) - " + maxi + " ks = " + (maxi*100) + " Kč%0D%0A%0D%0A" +
+Celková cena: ${total} Kč`;
 
-    "Celková cena: " + total + " Kč";
+    let mail = "mailto:app@kostka-skola.cz"
+        + "?subject=" + encodeURIComponent("Objednávka MysteryBox")
+        + "&body=" + encodeURIComponent(text);
 
-    window.location.href = "mailto:app@kostka-skola.cz?subject=Objednávka MysteryBox&body=" + text;
+    window.location.href = mail;
 }
+
 </script>
 
 </body>
